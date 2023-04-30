@@ -1,0 +1,51 @@
+---
+title: "VMIR"
+format: html
+echo: false
+warning: false
+message: false
+---
+
+**Vast Majority Income Ratio and Health service accessibility**
+
+***Around the World, there are very different levels of income and access to essential health services. In my datasets, some relationships can be seen between the two. There are huge discrepancies between the richer countires of the World and the poorer countries. These differences are caused by many factors, including:***
+
+## -population densities, levels of development, technological capabilities
+
+From this graph, we can see how, as time moves on, the vast majority income ratio has increased with it.
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+install.packages("ggmap")
+library(ggmap)
+library(scales)
+
+unicef_indicator_1 <- read.csv("unicef_indicator_1.csv")
+
+unicef_metadata <- read.csv("unicef_metadata.csv")
+
+
+ unicef_indicator_1 %>%
+  ggplot(aes(obs_value, time_period)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+
+```
+
+This second graph, a bar chart, portaits the differences in Vast Majority Income Ratios around the World. There is a very large space between the largest observed value within the data set and the smallest. It is also interesting to note how much of a fluctuation there is thoughout the bar chart, with many sharp declines in VMIR
+
+```{r}
+library(ggplot2)
+
+ggplot(unicef_indicator_1, aes(x = country, y = obs_value )) +
+  geom_bar(stat = "identity")
+```
+
+this graph,a time series, also portays the discrepancies between countries. it is also important to note that even as we become more and more modern, the gao between the richest countries and the poorest countries are larger than ever. Although the average has increased, those that have not kept up are being left behind and those ahead are not waiting for anyone else
+
+```{r}
+unicef_indicator_1%>%
+  ggplot(aes(time_period,`obs_value`))+
+  geom_line()
+```
